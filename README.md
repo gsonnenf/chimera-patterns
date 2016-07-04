@@ -46,8 +46,7 @@ b.func("Bear");
 //YetiBear
 ```
 ### Aspect
-The _Aspect_ namespace contains classes that are useful adding onEntry, onExit, or decorator/wrapping methods in additional code. These are commonly used in aspect orientated programming where you seperate your business logic from your cross-cutting concerns (such as loggers or security checks). onMethodEntry and onMethodExit use MulticastFunctions to allow for easier access to modifying onMethod* stacks.
-
+The _Aspect_ namespace contains classes that are useful for adding onEntry, onExit, or decorator/wrapping methods to your functions. These are commonly used in aspect orientated programming where you seperate your business logic from your cross-cutting concerns (such as loggers or security checks). This implementation attaches the previously attached Multifunctions to the entry and exit of your code so many methods can be attached, removed or viewed with ease.
 **OnMethodEntry/OnMethodExit Example:**
 
 ```javascript
