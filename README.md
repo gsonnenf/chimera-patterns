@@ -12,32 +12,33 @@ The _Multicast_ namespace contains classes that can be used to create executable
 ```Javascript
 class TestClass {
     constructor() {
-//Events
+        //Events
         this.onSomeEvent = new MulticastEvent(); //Standard delcaration
         this.onSomeEvent2 = new MulticastEvent(this, 'onSomeEvent2'); //Protected declaration, does not allow onSomeEvent2 property to be re-assigned
 
-//Throws an error because onSomeEvent2 does not allow reassignment
+        //Throws an error because onSomeEvent2 does not allow reassignment
         this.onSomeEvent2 = function badUserFunc() { console.log("I would have removed important callbacks"); }
 
-//Assign Event callbacks, this can be done externally too.
+        //Assign Event callbacks, this can be done externally too.
         this.onSomeEvent(()=> { console.log("gargoyle"); });
-
-        this.onSomeEvent(function (myArg, myArg2, anotherArg) { this.testClassVariable = "Chimera:" + myArg + myArg2 + myArg3; });
+        this.onSomeEvent(()=> { console.log("ghoul"); });
+        this.onSomeEvent2(function (myArg, myArg2, myArg3) { this.testClassVariable = "Chimera:" + myArg + myArg2 + myArg3; });
     }
 
-    triggerSomeEvent() {
-        this.onSomeEvent.callEvent("lion", "lizard", "bat"); //Triggers the event.
+    triggerSomeEvents() {
+        this.onSomeEvent.callEvent(); //Triggers the event.
+        this.onSomeEvent2.callEvent("lion", "lizard", "bat"); //Triggers the event.
     }
 }
 ```
 **MulticastFunction Example:**
 
 ```Javascript
-myMultiFunction = new MulticastFunction();
-myMultiFunction.push( ( myArg ) => { console.log(myArg) };
-myMutiFunction.push( function( someArg ) { console.log( this.myVariable + someArg) });
+var manyFuncs = new MulticastFunction();
+manyFuncs.push( ( myArg ) => { console.log(myArg) };
+manyFuncs.push( function( someArg ) { console.log( this.myVariable + someArg) });
 
-b = {  func: myMutliFunction, myVariable: "Yeti" };
+b = {  func: manyFuncs, myVariable: "Yeti" };
 b.func("Bear");
 
 //Outputs:
@@ -59,10 +60,13 @@ var exitLog = function { console.log("Here be dragons");
 Aspect.onMethodEntry(this,'insert', securityCheck;)
 Aspect.onMethodEntry(this,'insert', securityCheck;)
 Aspect.onMethodEntry(this,'insert', securityCheck;)
+Aspect.onMethodEntry(this,'insert', entryLog;)
+Aspect.onMethodEntry(this,'insert', entryLog;)
+Aspect.onMethodEntry(this,'insert', entryLog;)
 
-Aspect.onMethodExit(this,'insert', log;)
-Aspect.onMethodExit(this,'insert', log;)
-Aspect.onMethodExit(this,'insert', log;)
+Aspect.onMethodExit(this,'insert', exitLog;)
+Aspect.onMethodExit(this,'insert', exitLog;)
+Aspect.onMethodExit(this,'insert', exitLog;)
 
 }
 insert(document) { database.insert(document); }
