@@ -53,27 +53,28 @@ The _Aspect_ namespace contains classes that are useful for adding onEntry, onEx
 
 ```javascript
 class DatabaseClass {
-constructor(userRole) {
-var securityCheck = function() { if (userRole != "dragon") throw new Error("Not a dragon"); }
-var entryLog = function { console.log("Be here dragons?");
-var exitLog = function { console.log("Here be dragons");
+    constructor(userRole) {
+        this.userRole = userRole;
+        var securityCheck = function() { if (this.userRole != "dragon") throw new Error("Not a dragon"); }
+        var entryLog = ()=>{ console.log("Be here dragons?");}
+        var exitLog = ()=>{ console.log("Here be dragons");}
 
-Aspect.onMethodEntry(this,'insert', securityCheck;)
-Aspect.onMethodEntry(this,'modify', securityCheck;)
-Aspect.onMethodEntry(this,'delete', securityCheck;)
+        Aspect.onMethodEntry(this,'insert', securityCheck;)
+        Aspect.onMethodEntry(this,'modify', securityCheck;)
+        Aspect.onMethodEntry(this,'delete', securityCheck;)
 
-Aspect.onMethodEntry(this,'insert', entryLog;)
-Aspect.onMethodEntry(this,'modify', entryLog;)
-Aspect.onMethodEntry(this,'delete', entryLog;)
+        Aspect.onMethodEntry(this,'insert', entryLog;)
+        Aspect.onMethodEntry(this,'modify', entryLog;)
+        Aspect.onMethodEntry(this,'delete', entryLog;)
 
-Aspect.onMethodExit(this,'insert', exitLog;)
-Aspect.onMethodExit(this,'modify', exitLog;)
-Aspect.onMethodExit(this,'delete', exitLog;)
+        Aspect.onMethodExit(this,'insert', exitLog;)
+        Aspect.onMethodExit(this,'modify', exitLog;)
+        Aspect.onMethodExit(this,'delete', exitLog;)
 
-}
-insert(document) { database.insert(document); }
-modify(document) { database.insert(document); }
-delete(document) { database.insert(document); }
+    }
+    insert(document) { database.insert(document); }
+    modify(document) { database.insert(document); }
+    delete(document) { database.insert(document); }
 }
 ```
 
