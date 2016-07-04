@@ -31,6 +31,7 @@ class TestClass {
     }
 }
 ```
+
 **MulticastFunction Example:**
 
 ```Javascript
@@ -47,6 +48,7 @@ b.func("Bear");
 ```
 ### Aspect
 The _Aspect_ namespace contains classes that are useful for adding onEntry, onExit, or decorator/wrapping methods to your functions. These are commonly used in aspect orientated programming where you seperate your business logic from your cross-cutting concerns (such as loggers or security checks). This implementation attaches the previously attached Multifunctions to the entry and exit of your code so many methods can be attached, removed or viewed with ease.
+
 **OnMethodEntry/OnMethodExit Example:**
 
 ```javascript
@@ -57,15 +59,16 @@ var entryLog = function { console.log("Be here dragons?");
 var exitLog = function { console.log("Here be dragons");
 
 Aspect.onMethodEntry(this,'insert', securityCheck;)
-Aspect.onMethodEntry(this,'insert', securityCheck;)
-Aspect.onMethodEntry(this,'insert', securityCheck;)
+Aspect.onMethodEntry(this,'modify', securityCheck;)
+Aspect.onMethodEntry(this,'delete', securityCheck;)
+
 Aspect.onMethodEntry(this,'insert', entryLog;)
-Aspect.onMethodEntry(this,'insert', entryLog;)
-Aspect.onMethodEntry(this,'insert', entryLog;)
+Aspect.onMethodEntry(this,'modify', entryLog;)
+Aspect.onMethodEntry(this,'delete', entryLog;)
 
 Aspect.onMethodExit(this,'insert', exitLog;)
-Aspect.onMethodExit(this,'insert', exitLog;)
-Aspect.onMethodExit(this,'insert', exitLog;)
+Aspect.onMethodExit(this,'modify', exitLog;)
+Aspect.onMethodExit(this,'delete', exitLog;)
 
 }
 insert(document) { database.insert(document); }
@@ -73,9 +76,10 @@ modify(document) { database.insert(document); }
 delete(document) { database.insert(document); }
 }
 ```
-**onMethodDecorator Example:**
-```javascript
 
+**onMethodDecorator Example:**
+
+```javascript
 class DatabaseClass {
     constructor() {
 
@@ -97,18 +101,17 @@ class DatabaseClass {
     modify(document) { database.insert(document); }
     delete(document) { database.insert(document); }
 }
-
 ```
 
 ### Observable
 I still need to clean this one up.
 
-....
 
 ### AsyncCallbackListCompleteNotifier
 Often times when making multiple asynchronous calls one has to wait for all of them to finish without blocking before continuing. With the Asynchronous Callback List Complete Notifier you can observe a list of callbacks to observe for execution, and when they have all been called, trigger an onCompleted event.
 
 **Example:**
+
 ```Javascript
 
 notifier = new AsyncCallbackListCompleteNotifier();
