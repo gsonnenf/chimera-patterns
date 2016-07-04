@@ -7,7 +7,7 @@ Chimera patterns is an applied design pattern library for javascript/ECMA6 that 
 ### Mutlicast 
 The _Multicast_ namespace contains classes that can be used to create executable callback lists for events and functions. The Multicast* class preseves 'this' context. 
 
-**MulticastEvent Usage:**
+**MulticastEvent Example:**
 
 ```Javascript
 class TestClass {
@@ -30,7 +30,7 @@ class TestClass {
     }
 }
 ```
-**MulticastFunction Usage:**
+**MulticastFunction Example:**
 
 ```Javascript
 myMultiFunction = new MulticastFunction();
@@ -47,7 +47,7 @@ b.func("Bear");
 ### Aspect
 The _Aspect_ namespace contains classes that are useful adding onEntry, onExit, or decorator/wrapping methods in additional code. These are commonly used in aspect orientated programming where you seperate your business logic from your cross-cutting concerns (such as loggers or security checks). onMethodEntry and onMethodExit use MulticastFunctions to allow for easier access to modifying onMethod* stacks.
 
-**OnMethodEntry/OnMethodExit Usage:**
+**OnMethodEntry/OnMethodExit Example:**
 
 ```javascript
 class DatabaseClass {
@@ -70,7 +70,7 @@ modify(document) { database.insert(document); }
 delete(document) { database.insert(document); }
 }
 ```
-**onMethodDecorator Usage:**
+**onMethodDecorator Example:**
 ```javascript
 
 class DatabaseClass {
@@ -105,7 +105,7 @@ I still need to clean this one up.
 ### AsyncCallbackListCompleteNotifier
 Often times when making multiple asynchronous calls one has to wait for all of them to finish without blocking before continuing. With the Asynchronous Callback List Complete Notifier you can observe a list of callbacks to observe for execution, and when they have all been called, trigger an onCompleted event.
 
-**Usage:**
+**Example:**
 ```Javascript
 
 notifier = new AsyncCallbackListCompleteNotifier();
