@@ -35,7 +35,7 @@ class TestClass {
 
 ```Javascript
 var manyFuncs = new MulticastFunction();
-manyFuncs.push( ( myArg ) => { console.log(myArg) };
+manyFuncs.push( ( myArg ) => { console.log(myArg) });
 manyFuncs.push( function( someArg ) { console.log( this.myVariable + someArg) });
 
 b = {  func: manyFuncs, myVariable: "Yeti" };
