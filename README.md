@@ -1,6 +1,6 @@
 # chimera-patterns
 
-Chimera patterns is an applied design pattern library for javascript/ECMA6 that contains generic versions of common patterns found or useful to javascript coding.
+Chimera patterns is an applied design pattern library for javascript/ECMA6 that contains generic versions of common patterns found in or useful to javascript coding.
 
 ## Current Namespace Functionality
 
@@ -85,9 +85,9 @@ class DatabaseClass {
     constructor() {
 
         var errorHandler = function (callback, args) {
+            console.log("I hope our remote database is online...");
             try {
-                console.log("I hope this works.");
-                coreMethod.apply(this, args);
+                callback.apply(this, args);
             } catch (databaseNotConnectedError) {
                 this.errorState = true;
                 console.log("Database is not connected");
