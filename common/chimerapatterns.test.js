@@ -1,15 +1,15 @@
 /**
  * Created by Greg on 6/30/2016.
  */
-import "/common/chimera_pattern"
+import {Multicast, Aspect, AsyncCallbackListCompleteNotifier} from "/common/chimerapatterns"
 
 describe('FrameworkPattern', function() {
 
     describe('Multicast', function() {
 
-        var MulticastBase = Pattern.Multicast.MulticastBase;
-        var MulticastEvent = Pattern.Multicast.MulticastEvent;
-        var MulticastFunction = Pattern.Multicast.MulticastFunction;
+        var MulticastBase = Multicast.MulticastBase;
+        var MulticastEvent = Multicast.MulticastEvent;
+        var MulticastFunction = Multicast.MulticastFunction;
 
         it('tests MulticastBase push and call events and passing arguments', function () {
             var testVar = false;
@@ -33,7 +33,7 @@ describe('FrameworkPattern', function() {
             assert(testObj.onTestEvent instanceof MulticastBase, "should be instance of Multicast base." );
 
             testObj.onTestEvent.lock(testObj,'onTestEvent');
-            assert.throws( function() {testObj.onTestEvent = null}, Pattern.Lock.LockError, "should throw an error on assignment.");
+            assert.throws( function() {testObj.onTestEvent = null}, Multicast.LockError, "should throw an error on assignment.");
             assert(testObj.onTestEvent instanceof MulticastBase, "should not be null because of lock." );
         });
 
@@ -61,7 +61,7 @@ describe('FrameworkPattern', function() {
 
             assert(testObj.onTestEvent instanceof MulticastEvent, "should be instance of MulticastEvent." );
             testObj.onTestEvent.lock();
-            assert.throws( function() { testObj.onTestEvent = null }, Pattern.Lock.LockError, "should throw an error on assignment.");
+            assert.throws( function() { testObj.onTestEvent = null }, Multicast.LockError, "should throw an error on assignment.");
             assert(testObj.onTestEvent instanceof MulticastEvent, "should not be null because of lock." );
         });
 
@@ -87,14 +87,13 @@ describe('FrameworkPattern', function() {
 
             assert(testObj.onTestFunc instanceof MulticastFunction, "should be instance of MulticastFunction." );
             testObj.onTestFunc.lock(testObj,'onTestFunc');
-            assert.throws( function() { testObj.onTestFunc = null }, Pattern.Lock.LockError, "should throw an error on assignment.");
+            assert.throws( function() { testObj.onTestFunc = null }, Multicast.LockError, "should throw an error on assignment.");
             assert(testObj.onTestFunc instanceof MulticastFunction, "should not be null because of lock." );
         });
 
     });
 
     describe('Aspect', function() {
-        var Aspect = Pattern.Aspect;
 
         it('should test to see if the aspect proxy is transparent', function(){
             var testMethod = function( a ) { return a };
@@ -234,7 +233,6 @@ describe('FrameworkPattern', function() {
     });
 
     describe('AsyncCallbackListCompleteNotifier', function(done) {
-        var AsyncCallbackListCompleteNotifier = Pattern.AsyncCallbackListCompleteNotifier;
 
         it('tests the single case of the notifier', function(done) {
             var testNotifier = new AsyncCallbackListCompleteNotifier();
