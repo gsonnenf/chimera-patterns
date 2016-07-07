@@ -1,6 +1,6 @@
 # chimera-patterns
 
-Chimera patterns is an applied design pattern library for javascript/ECMA6 that contains generic versions of common patterns found or useful to javascript coding.
+Chimera patterns is an applied design pattern library for javascript/ECMA6 that contains generic versions of common patterns found in or useful to javascript coding.
 
 ## Current Namespace Functionality
 
@@ -21,7 +21,7 @@ class TestClass {
 
         //Assign Event callbacks, this can be done externally too.
         this.onSomeEvent(()=> { console.log("gargoyle"); });
-        this.onSomeEvent(()=> { console.log("ghoul"); });
+        this.onSomeEvent.push(()=> { console.log("ghoul"); });
         this.onSomeEvent2(function (myArg, myArg2, myArg3) { this.testClassVariable = "Chimera:" + myArg + myArg2 + myArg3; });
     }
 
@@ -84,23 +84,26 @@ class DatabaseClass {
 class DatabaseClass {
     constructor() {
 
+        //An error handling advice that wraps around our business logic
         var errorHandler = function (callback, args) {
+            console.log("I hope our remote database is online...");
             try {
-                console.log("I hope this works.");
-                coreMethod.apply(this, args);
+                callback.apply(this, args);
             } catch (databaseNotConnectedError) {
                 this.errorState = true;
                 console.log("Database is not connected");
             }
-            Aspect.onMethodDecorator(this, 'insert', errorHandler);
-            Aspect.onMethodDecorator(this, 'modify', errorHandler);
-            Aspect.onMethodDecorator(this, 'delete', errorHandler);
         }
+        //Assigns advice to our business logic
+        Aspect.onMethodDecorator(this, 'insert', errorHandler);
+        Aspect.onMethodDecorator(this, 'modify', errorHandler);
+        Aspect.onMethodDecorator(this, 'delete', errorHandler);
     }
 
+    //Some Business logic
     insert(document) { database.insert(document); }
-    modify(document) { database.insert(document); }
-    delete(document) { database.insert(document); }
+    modify(document) { database.modify(document); }
+    remove(document) { database.remove(document); }
 }
 ```
 
@@ -122,25 +125,23 @@ var callback1 = notifier.registerCallback( (document)=>{ someProcess(document) }
 var callback2 = notifier.registerCallback( (ajax)=>{ someProcess2(ajax) } );
 
 //3 Asynchronous functions
-db.get(docId, callback1);
-
-api.get( someUrl, callback2 );
+server.get(docId, callback1);
+wepApi.get( someUrl, callback2 );
 
 server.login({
     user:"Leprechaun",
     password:"potofgold", 
-    onFinished: notifier.registerEmptyCallback() //Creates an empty callback.
+    onLoggedInEvent: notifier.registerEmptyCallback() //WE dont have anything to do when logged on, we just want to be notified, so this creates a callback with only notifier code.
 });
 
 //Registers the onCompleted event with the notifier
-testNotifier.onCompleted( ()=> {
-    console.log("User logged in AND document fetched AND Ajax fetched")
-});
+testNotifier.onCompleted( ()=> { console.log("User logged in AND document fetched AND Ajax fetched"); });
 
-//After all callbacks are registered, enables the onComplete event.
+//After all callbacks are registered, enables the onComplete event, if all asynchrounous events complete before start() is called, 
+// onCompleted will be called immediately .
 testNotifier.start();
 
-//When all the callbacks have been called the onComplete notifier will be run.
+//Now, When all the callbacks have been called the onComplete notifier will be run.
 
 
 
