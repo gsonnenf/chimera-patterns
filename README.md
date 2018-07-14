@@ -37,7 +37,7 @@ class TestClass {
 ```Javascript
 var manyFuncs = new MulticastFunction();
 manyFuncs.push( ( myArg ) => { console.log(myArg) });
-manyFuncs.push( function( someArg ) { console.log( this.myVariable + someArg) });
+manyFuncs.push( function( someArg ) { console.log( this.myVariable + someArg) }); //Demonstrates "this" will refer to assigned to object Multicast function is a part of.
 
 b = {  func: manyFuncs, myVariable: "Yeti" };
 b.func("Bear");
@@ -123,6 +123,7 @@ notifier = new AsyncCallbackListCompleteNotifier();
 //Wraps callbacks in an observer and registers them with the notifier.
 var callback1 = notifier.registerCallback( (document)=>{ someProcess(document) });
 var callback2 = notifier.registerCallback( (ajax)=>{ someProcess2(ajax) } );
+var callback3 = notifier.registerEmptyCallback(); // An empty callback that lets us know when callback has triggered.
 
 //3 Asynchronous functions
 server.get(docId, callback1);
@@ -131,7 +132,7 @@ wepApi.get( someUrl, callback2 );
 server.login({
     user:"Leprechaun",
     password:"potofgold", 
-    onLoggedInEvent: notifier.registerEmptyCallback() //WE dont have anything to do when logged on, we just want to be notified, so this creates a callback with only notifier code.
+    onLoggedInEvent: callback3
 });
 
 //Registers the onCompleted event with the notifier
