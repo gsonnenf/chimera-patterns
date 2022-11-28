@@ -73,8 +73,8 @@ class DatabaseClass {
 
     }
     insert(document) { database.insert(document); }
-    modify(document) { database.insert(document); }
-    delete(document) { database.insert(document); }
+    modify(document) { database.modify(document); }
+    delete(document) { database.delete(document); }
 }
 ```
 
